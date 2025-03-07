@@ -76,6 +76,21 @@ select::-webkit-scrollbar-thumb {
     border-radius: 4px;
 }
 
+/* Outer Scrollbar */
+#wrapper::-webkit-scrollbar {
+    width: 8px; /* Same as dropdown */
+}
+
+#wrapper::-webkit-scrollbar-thumb {
+    background: #e65100; /* Same as dropdown */
+    border-radius: 4px; /* Rounded edges */
+}
+
+#wrapper::-webkit-scrollbar-track {
+    background: rgba(255, 94, 0, 0.2); /* Light track color */
+}
+
+
 select:hover,
 input:hover,
 select:focus,
