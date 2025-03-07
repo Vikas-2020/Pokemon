@@ -32,6 +32,10 @@ select.addEventListener("change", (e) => {
   const filteredData = finalData.filter((pokemon) =>
     pokemon.types.some((type) => type.type.name === e.target.value)
   );
+  if(filteredData.length === 0){
+    pokemonDiv.innerHTML = "<h2>No Pokémon found</h2>";
+    return;
+  }
   displayData(filteredData);
 });
 
