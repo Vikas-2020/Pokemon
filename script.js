@@ -60,16 +60,35 @@ search.addEventListener("keyup", (e) => {
 });
 
 async function getPokemons(url) {
-  loadingDiv.style.display = "block"; // Show loading before fetching data
-  const response = await getDataFromURL(url);
-  pokemons = response.results;
+  try {
+      loadingDiv.style.display = "block"; // Show loading before fetching data
 
-  const promises = pokemons.map((obj) => getDataFromURL(obj.url));
-  const newData = await Promise.all(promises);
+      const response = await getDataFromURL(url);
+      if (!response || !response.results) {
+          throw new Error("Invalid response from API");
+      }
 
-  finalData = [...finalData, ...newData]; // Append new data instead of replacing
-  displayData(finalData);
+      pokemons = response.results;
+
+      const promises = pokemons.map((obj) => getDataFromURL(obj.url));
+
+      const newData = await Promise.all(promises.map(p =>
+          p.catch(err => {
+              console.error("Error fetching Pokémon details:", err);
+              return null; // Prevent Promise.all from rejecting entirely
+          })
+      ));
+
+      finalData = [...finalData, ...newData.filter(Boolean)]; // Remove null values
+      displayData(finalData);
+  } catch (error) {
+      console.error("Error fetching Pokémon:", error);
+      alert("Failed to fetch Pokémon data. Please try again later.");
+  } finally {
+      loadingDiv.style.display = "none"; // Hide loading after fetching data
+  }
 }
+
 
 function displayData(data) {
   loadingDiv.style.display = "block";
