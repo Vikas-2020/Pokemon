@@ -7,6 +7,7 @@ const pokemonDiv = document.querySelector("#pokemon");
 const search = document.querySelector("#search");
 const loadMore = document.querySelector("#loadmore");
 const loadingDiv = document.querySelector("#loading");
+const resetButton = document.querySelector("#reset");
 
 let types;
 let pokemons;
@@ -146,3 +147,9 @@ async function getDataFromURL(url) {
   const response = await fetch(url);
   return response.json();
 }
+
+resetButton.addEventListener("click", () => {
+    search.value = "";  // Clear search input
+    select.value = "";  // Reset dropdown
+    displayData(finalData);  // Show all Pokémon
+});

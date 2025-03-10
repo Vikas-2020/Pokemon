@@ -39,7 +39,7 @@ header {
 
 /* Select and Input Fields */
 select,
-input {
+input, #reset {
     height: 100%;
     border-radius: 10px;
     border: 2px solid #e65100;
@@ -93,8 +93,10 @@ select::-webkit-scrollbar-thumb {
 
 select:hover,
 input:hover,
+#reset:hover,
 select:focus,
-input:focus {
+input:focus,
+#reset:focus {
     border-color: #bf360c;
     box-shadow: 0px 0px 10px rgba(255, 94, 0, 0.5);
 }
@@ -221,33 +223,50 @@ input::placeholder {
     100% { transform: rotate(360deg); }
 }
 
-@media screen and (max-width: 400px) {
+@media screen and (max-width: 400px){
+    select, input, #reset {
+        flex: 1; /* Allow stretching */
+        max-width: 100px; /* Prevents shrinking too much */
+    }
+}
+
+@media screen and (max-width: 536px){
+    /* Header Adjustments */
     header {
-        padding: 10px;
-        height: 60px;
+        padding: 8px;
+        height: auto; /* Adjust height dynamically */
+        flex-wrap: wrap; /* Allows items to wrap */
+        gap: 0.5rem;
     }
 
-    select, input {
+    select, input, #reset {
         font-size: 13px;
         padding: 5px 12px;
         background-position: right 2px center;
         background-size: 9px;
     }
 
+    #reset {
+        min-width: 60px; /* Ensures reset button remains visible */
+    }
+
+    /* Adjust Cards */
     .card {
-        width:9rem;
-        height: 13.5rem;
+        width: 8.5rem;
+        height: 12.5rem;
     }
 
     .card p {
-        font-size: 12px;
+        font-size: 11px;
         padding: 3px;
     }
 
+    /* Load More Button */
     #loadmore {
         bottom: 1rem;
         right: 0.5rem;
         padding: 8px 10px;
-        font-size: 16px;
+        font-size: 15px;
     }
 }
+
